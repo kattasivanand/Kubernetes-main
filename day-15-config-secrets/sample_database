@@ -1,0 +1,134 @@
+//craete sample database my database name is mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+✅ Step 1: Select Your Database
+USE mydb;
+✅ Step 2: Create Sample Tables
+
+Let's create a sample e-commerce schema with customers, products, and orders.
+
+-- Customers table
+CREATE TABLE customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products table
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    price DECIMAL(10, 2),
+    stock INT
+);
+
+-- Orders table
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    quantity INT,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+✅ Step 3: Insert Sample Data
+-- Insert customers
+INSERT INTO customers (name, email) VALUES
+('Alice Smith', 'alice@example.com'),
+('Bob Johnson', 'bob@example.com'),
+('Charlie Davis', 'charlie@example.com');
+
+-- Insert products
+INSERT INTO products (name, price, stock) VALUES
+('Laptop', 999.99, 10),
+('Smartphone', 499.50, 25),
+('Headphones', 79.99, 50);
+
+-- Insert orders
+INSERT INTO orders (customer_id, product_id, quantity) VALUES
+(1, 1, 1),  -- Alice buys 1 Laptop
+(2, 3, 2),  -- Bob buys 2 Headphones
+(3, 2, 1);  -- Charlie buys 1 Smartphone
+
+✅ Step 4: Query Data (Optional)
+-- View all orders with customer and product info
+SELECT 
+    o.order_id,
+    c.name AS customer_name,
+    p.name AS product_name,
+    o.quantity,
+    o.order_date
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+JOIN products p ON o.product_id = p.product_id;
+// how to check database
+✅ 1. Show all databases
+
+This lists all available databases:
+
+SHOW DATABASES;
+✅ 2. Use your database
+
+Since your custom database is mydb, select it like this:
+
+USE mydb;
+
+
+You should see:
+
+Database changed
+
+✅ 3. Show all tables in your database
+
+To see which tables are in mydb:
+
+SHOW TABLES;
+
+✅ 4. View table structure
+
+To see the structure (columns) of a specific table, for example customers:
+
+DESCRIBE customers;
+
+
+Or:
+
+SHOW COLUMNS FROM customers;
+✅ 5. See data from a table
+
+To view all records in a table (e.g., customers):
+
+SELECT * FROM customers;
+
+
+You can do the same for products, orders, etc.
+
+🧠 Example Output
+After SHOW TABLES;
++----------------+
+| Tables_in_mydb |
++----------------+
+| customers      |
+| products       |
+| orders         |
++----------------+
+
+After SELECT * FROM customers;
++-------------+--------------+---------------------+---------------------+
+| customer_id | name         | email               | created_at          |
++-------------+--------------+---------------------+---------------------+
+|           1 | Alice Smith  | alice@example.com   | 2025-10-22 12:00:00 |
+|           2 | Bob Johnson  | bob@example.com     | 2025-10-22 12:01:00 |
+|           3 | Charlie Davis| charlie@example.com | 2025-10-22 12:02:00 |
++-------------+--------------+---------------------+---------------------+
+
