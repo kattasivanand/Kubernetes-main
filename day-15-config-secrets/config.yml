@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: mysql-config
 data:
-  MYSQL_DATABASE: mydb
+  MYSQL_DATABASE: mydb // this database name
   MYSQL_USER: admin
